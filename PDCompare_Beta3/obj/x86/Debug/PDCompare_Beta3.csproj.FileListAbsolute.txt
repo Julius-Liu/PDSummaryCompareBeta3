@@ -1,0 +1,9 @@
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\bin\Debug\PDCompare_Beta3.exe
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\bin\Debug\PDCompare_Beta3.pdb
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.Main.resources
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.Progress.resources
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.Properties.Resources.resources
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.csproj.GenerateResource.Cache
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.exe
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.pdb
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.TestResultExcelForm.resources
