@@ -124,5 +124,16 @@ namespace PDCompare_Beta3
             TestResultExcelForm testResultExcelForm1 = new TestResultExcelForm();
             testResultExcelForm1.Show();
         }
+
+        private void testFileNameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string[] split = tbNew.Text.Split('\\');
+            //int splitLen = split.Length;
+            int yyyLen = split[split.Length - 1].Length;
+
+            string resultFileName = tbNew.Text.Substring(0, tbNew.Text.Length - yyyLen) + tbResult.Text + ".xlsx";
+
+            MessageBox.Show(resultFileName);
+        }
     }
 }

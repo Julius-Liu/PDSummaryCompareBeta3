@@ -7,3 +7,4 @@ C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_
 C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.exe
 C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.pdb
 C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.TestResultExcelForm.resources
+C:\Users\jliu15\documents\visual studio 2010\Projects\PDCompare_Beta3\PDCompare_Beta3\obj\x86\Debug\PDCompare_Beta3.csprojResolveAssemblyReference.cache

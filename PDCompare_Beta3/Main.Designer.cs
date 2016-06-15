@@ -40,11 +40,12 @@
             this.optionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createTestResultFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createTestResultFileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.createTestResultFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.createTestResultFileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.testFileNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -172,6 +173,22 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
+            // createTestResultFileToolStripMenuItem
+            // 
+            this.createTestResultFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.createTestResultFileToolStripMenuItem1,
+            this.testFileNameToolStripMenuItem});
+            this.createTestResultFileToolStripMenuItem.Name = "createTestResultFileToolStripMenuItem";
+            this.createTestResultFileToolStripMenuItem.Size = new System.Drawing.Size(125, 20);
+            this.createTestResultFileToolStripMenuItem.Text = "CreateTestResultFile";
+            // 
+            // createTestResultFileToolStripMenuItem1
+            // 
+            this.createTestResultFileToolStripMenuItem1.Name = "createTestResultFileToolStripMenuItem1";
+            this.createTestResultFileToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.createTestResultFileToolStripMenuItem1.Text = "CreateTestResultFile";
+            this.createTestResultFileToolStripMenuItem1.Click += new System.EventHandler(this.createTestResultFileToolStripMenuItem1_Click);
+            // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnGo);
@@ -196,20 +213,12 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // createTestResultFileToolStripMenuItem
+            // testFileNameToolStripMenuItem
             // 
-            this.createTestResultFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createTestResultFileToolStripMenuItem1});
-            this.createTestResultFileToolStripMenuItem.Name = "createTestResultFileToolStripMenuItem";
-            this.createTestResultFileToolStripMenuItem.Size = new System.Drawing.Size(125, 20);
-            this.createTestResultFileToolStripMenuItem.Text = "CreateTestResultFile";
-            // 
-            // createTestResultFileToolStripMenuItem1
-            // 
-            this.createTestResultFileToolStripMenuItem1.Name = "createTestResultFileToolStripMenuItem1";
-            this.createTestResultFileToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.createTestResultFileToolStripMenuItem1.Text = "CreateTestResultFile";
-            this.createTestResultFileToolStripMenuItem1.Click += new System.EventHandler(this.createTestResultFileToolStripMenuItem1_Click);
+            this.testFileNameToolStripMenuItem.Name = "testFileNameToolStripMenuItem";
+            this.testFileNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testFileNameToolStripMenuItem.Text = "TestFileName";
+            this.testFileNameToolStripMenuItem.Click += new System.EventHandler(this.testFileNameToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -257,6 +266,7 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem createTestResultFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createTestResultFileToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem testFileNameToolStripMenuItem;
     }
 }
 
