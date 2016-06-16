@@ -42,10 +42,11 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createTestResultFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createTestResultFileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.testFileNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.testFileNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testProgressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -133,7 +134,7 @@
             // 
             this.btnGo.Font = new System.Drawing.Font("HP Simplified", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnGo.Location = new System.Drawing.Point(531, 26);
+            this.btnGo.Location = new System.Drawing.Point(537, 26);
             this.btnGo.Name = "btnGo";
             this.btnGo.Size = new System.Drawing.Size(141, 47);
             this.btnGo.TabIndex = 2;
@@ -177,7 +178,8 @@
             // 
             this.createTestResultFileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.createTestResultFileToolStripMenuItem1,
-            this.testFileNameToolStripMenuItem});
+            this.testFileNameToolStripMenuItem,
+            this.testProgressToolStripMenuItem});
             this.createTestResultFileToolStripMenuItem.Name = "createTestResultFileToolStripMenuItem";
             this.createTestResultFileToolStripMenuItem.Size = new System.Drawing.Size(125, 20);
             this.createTestResultFileToolStripMenuItem.Text = "CreateTestResultFile";
@@ -188,6 +190,13 @@
             this.createTestResultFileToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.createTestResultFileToolStripMenuItem1.Text = "CreateTestResultFile";
             this.createTestResultFileToolStripMenuItem1.Click += new System.EventHandler(this.createTestResultFileToolStripMenuItem1_Click);
+            // 
+            // testFileNameToolStripMenuItem
+            // 
+            this.testFileNameToolStripMenuItem.Name = "testFileNameToolStripMenuItem";
+            this.testFileNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testFileNameToolStripMenuItem.Text = "TestFileName";
+            this.testFileNameToolStripMenuItem.Click += new System.EventHandler(this.testFileNameToolStripMenuItem_Click);
             // 
             // groupBox4
             // 
@@ -206,19 +215,19 @@
             this.tbResult.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbResult.Location = new System.Drawing.Point(43, 34);
             this.tbResult.Name = "tbResult";
-            this.tbResult.Size = new System.Drawing.Size(468, 30);
+            this.tbResult.Size = new System.Drawing.Size(488, 30);
             this.tbResult.TabIndex = 0;
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // testFileNameToolStripMenuItem
+            // testProgressToolStripMenuItem
             // 
-            this.testFileNameToolStripMenuItem.Name = "testFileNameToolStripMenuItem";
-            this.testFileNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.testFileNameToolStripMenuItem.Text = "TestFileName";
-            this.testFileNameToolStripMenuItem.Click += new System.EventHandler(this.testFileNameToolStripMenuItem_Click);
+            this.testProgressToolStripMenuItem.Name = "testProgressToolStripMenuItem";
+            this.testProgressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testProgressToolStripMenuItem.Text = "TestProgress";
+            this.testProgressToolStripMenuItem.Click += new System.EventHandler(this.testProgressToolStripMenuItem_Click);
             // 
             // Main
             // 
@@ -267,6 +276,7 @@
         private System.Windows.Forms.ToolStripMenuItem createTestResultFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem createTestResultFileToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem testFileNameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testProgressToolStripMenuItem;
     }
 }
 

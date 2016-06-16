@@ -135,5 +135,11 @@ namespace PDCompare_Beta3
 
             MessageBox.Show(resultFileName);
         }
+
+        private void testProgressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Progress progress1 = new Progress(tbOld.Text, tbNew.Text, tbResult.Text);
+            progress1.Show();
+        }
     }
 }
