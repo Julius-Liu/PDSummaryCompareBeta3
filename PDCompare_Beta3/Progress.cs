@@ -88,9 +88,6 @@ namespace PDCompare_Beta3
                 string[] split = pdNew.Split('\\');
 
                 string resultFileName = pdNew.Substring(0, pdNew.Length - split[split.Length - 1].Length) + resultFile + ".xlsx";
-                //MessageBox.Show(resultFileName);
-
-                //string resultFileName = @"C:\Users\jliu15\Desktop\0607\resultFileTest.xlsx" + @"ttt";
 
                 if (File.Exists(Path.GetFullPath(resultFileName)))
                 {
@@ -109,12 +106,12 @@ namespace PDCompare_Beta3
                 workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);    // Localization
                 Excel.Worksheet wsLocalization = (Excel.Worksheet)workBook.Sheets[1];
                 wsLocalization.Name = "Localization";
-                wsLocalization.Tab.Color = System.Drawing.Color.Yellow;
+                wsLocalization.Tab.Color = System.Drawing.Color.Turquoise;
 
                 workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);     // Option Code
                 Excel.Worksheet wsOptionCode = (Excel.Worksheet)workBook.Sheets[1];
                 wsOptionCode.Name = "Option Code";
-                wsOptionCode.Tab.Color = System.Drawing.Color.Yellow;
+                wsOptionCode.Tab.Color = System.Drawing.Color.GreenYellow;
 
                 workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);        // Removed
                 Excel.Worksheet wsRemoved = (Excel.Worksheet)workBook.Sheets[1];
@@ -142,28 +139,40 @@ namespace PDCompare_Beta3
 
                 #region font settings
 
-                Excel.Range rangeWsAdded = (Excel.Range)wsAdded.get_Range("A1");
-                rangeWsAdded.Font.Size = 18;
-                rangeWsAdded.Font.Bold = true;
-                rangeWsAdded.Font.Underline = true;
+                Excel.Range rangeWsAddedHL = (Excel.Range)wsAdded.get_Range("A1");
+                rangeWsAddedHL.Font.Size = 18;
+                rangeWsAddedHL.Font.Bold = true;
+                rangeWsAddedHL.Font.Underline = true;
 
-                Excel.Range rangeAutoFit = (Excel.Range)wsAdded.get_Range("A1", "C1");
-                rangeWsAdded.EntireColumn.AutoFit();
+                //Excel.Range rangeWsAddedAF = (Excel.Range)wsAdded.get_Range("A1", "C1");
+                //rangeWsAddedAF.EntireColumn.AutoFit();
+
+                //Excel.Range rangeWsChangedHL = (Excel.Range)wsChanged.get_Range("A1");
+                //rangeWsChangedHL.Font.Size = 18;
+                //rangeWsChangedHL.Font.Bold = true;
+                //rangeWsChangedHL.Font.Underline = true;
+
+                wsChanged.Rows[1][1].Font.Size = 18;
+                wsChanged.Rows[1][1].Font.Bold = true;
+                wsChanged.Rows[1][1].Font.Underline = true;
+
+                //wsChanged.Columns[1].ColumnWidth = 200;
+                Excel.Range rangeWsChangedA1 = (Excel.Range)wsChanged.get_Range("A1");
+                rangeWsChangedA1.ColumnWidth = 30;
+
+                Excel.Range rangeWsOptionCodeHL = (Excel.Range)wsOptionCode.get_Range("A1");
+                rangeWsOptionCodeHL.Font.Size = 18;
+                rangeWsOptionCodeHL.Font.Bold = true;
+                rangeWsOptionCodeHL.Font.Underline = true;
+
+                Excel.Range rangeWsChangedAF = (Excel.Range)wsChanged.get_Range("A2", "C2");
+                rangeWsChangedAF.EntireColumn.AutoFit();
+
+                
 
                 // TBD
 
                 #endregion
-
-                //wsAdded.SaveAs(FileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
-
-                //workBook.
-                //workBook.Close(false, Type.Missing, Type.Missing);
-
-                //app.Quit();
-
-                //MessageBox.Show("Finished!", "System Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //app.Visible = true;
-                //Application.Exit();
 
                 bool find = false;
 
@@ -177,48 +186,75 @@ namespace PDCompare_Beta3
                 //progressBar1.Maximum = rowCountNew - 1;
                 //this.recordCount = rowCountNew;
 
+                progressBar1.Maximum = rowCountNew;
+
                 for (int i = 1; i < rowCountNew; i++)
                 {
+                    progressBar1.Value = i+1;
+
                     find = false;
 
-                    string componentNameNew = dsNew.Tables[0].Rows[i][0].ToString();
+                    string componentPN_sub_New = dsNew.Tables[0].Rows[i-1][1].ToString().Substring(0, dsNew.Tables[0].Rows[i-1][1].ToString().Length - 1);
 
                     for (int j = 1; j < rowCountOld; j++)
                     {
-                        string componentNameOld = dsOld.Tables[0].Rows[j][0].ToString();
+                        string componentPN_sub_Old = dsOld.Tables[0].Rows[j-1][1].ToString().Substring(0, dsOld.Tables[0].Rows[j-1][1].ToString().Length - 1);
 
-                        if (componentNameNew == componentNameOld)
+                        if (componentPN_sub_New == componentPN_sub_Old)
                         {
                             find = true;
 
                             // Part Number is different
-                            if (dsNew.Tables[0].Rows[i][1].ToString() != dsOld.Tables[0].Rows[j][1].ToString())
+                            // Add to Changed
+                            if (dsNew.Tables[0].Rows[i-1][1].ToString() != dsOld.Tables[0].Rows[j-1][1].ToString())
                             {
-                                wsChanged.Cells[cursorChanged, 1] = componentNameNew;
-                                wsChanged.Cells[cursorChanged, 2] = dsOld.Tables[0].Rows[j][18].ToString() + "," + dsOld.Tables[0].Rows[j][19].ToString() + "," + dsOld.Tables[0].Rows[j][20].ToString()
-                                    + " --> " + dsNew.Tables[0].Rows[i][18].ToString() + "," + dsNew.Tables[0].Rows[i][19].ToString() + "," + dsNew.Tables[0].Rows[i][20].ToString();
-                                wsChanged.Cells[cursorChanged++, 3] = dsNew.Tables[0].Rows[i][1].ToString() + " --> " + dsOld.Tables[0].Rows[j][1].ToString();
+                                wsChanged.Cells[cursorChanged, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
+                                wsChanged.Cells[cursorChanged, 2] = dsOld.Tables[0].Rows[j-1][18].ToString().Trim() + "," + dsOld.Tables[0].Rows[j-1][19].ToString().Trim() + "," + dsOld.Tables[0].Rows[j-1][20].ToString().Trim()
+                                    + " --> " + dsNew.Tables[0].Rows[i-1][18].ToString().Trim() + "," + dsNew.Tables[0].Rows[i-1][19].ToString().Trim() + "," + dsNew.Tables[0].Rows[i-1][20].ToString().Trim();
+                                wsChanged.Cells[cursorChanged++, 3] = dsNew.Tables[0].Rows[i-1][1].ToString() + " --> " + dsOld.Tables[0].Rows[j-1][1].ToString();
                             }
                             // Option Code is different
-                            if (dsNew.Tables[0].Rows[i][3].ToString() != dsOld.Tables[0].Rows[j][3].ToString())
+                            // Add to Option Code
+                            if (dsNew.Tables[0].Rows[i-1][3].ToString() != dsOld.Tables[0].Rows[j-1][3].ToString())
                             {
-                                wsOptionCode.Cells[cursorOptionCode, 1] = componentNameNew;
-                                wsOptionCode.Cells[cursorOptionCode, 2] = dsNew.Tables[0].Rows[i][1].ToString();    // Part Number
-                                wsOptionCode.Cells[cursorOptionCode++, 3] = dsOld.Tables[0].Rows[j][3].ToString() + " --> " + dsNew.Tables[0].Rows[i][3].ToString(); // oldOptionCode --> newOptionCode
+                                wsOptionCode.Cells[cursorOptionCode, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
+                                wsOptionCode.Cells[cursorOptionCode, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // Part Number
+                                string optionCodeOld = dsOld.Tables[0].Rows[j - 1][3].ToString();
+                                string optionCodeNew = dsNew.Tables[0].Rows[i - 1][3].ToString();
+                                if (optionCodeOld == "")
+                                {
+                                    optionCodeOld = "null";
+                                }
+                                if (optionCodeNew == "")
+                                {
+                                    optionCodeNew = "null";
+                                }
+                                wsOptionCode.Cells[cursorOptionCode++, 3] = optionCodeOld + " --> " + optionCodeNew; // oldOptionCode --> newOptionCode
                             }
                             // Localization
-                            if (dsNew.Tables[0].Rows[i][4].ToString() != dsOld.Tables[0].Rows[j][4].ToString())
+                            // Add to Localization
+                            if (dsNew.Tables[0].Rows[i-1][4].ToString() != dsOld.Tables[0].Rows[j-1][4].ToString())
                             {
-                                wsLocalization.Cells[cursorLocalization, 1] = componentNameNew;
-                                wsLocalization.Cells[cursorLocalization, 2] = dsNew.Tables[0].Rows[i][1].ToString();    // Part Number
-                                wsLocalization.Cells[cursorLocalization++, 3] = dsOld.Tables[0].Rows[j][4].ToString() + " --> " + dsNew.Tables[0].Rows[i][4].ToString(); // oldLocalization --> newLocalization
+                                wsLocalization.Cells[cursorLocalization, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
+                                wsLocalization.Cells[cursorLocalization, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // Part Number
+                                string localizationOld = dsOld.Tables[0].Rows[j-1][4].ToString();
+                                string localizationNew = dsNew.Tables[0].Rows[i-1][4].ToString();
+                                if (localizationOld == "")
+                                {
+                                    localizationOld = "null";
+                                }
+                                if (localizationNew == "")
+                                {
+                                    localizationNew = "null";
+                                }
+                                wsLocalization.Cells[cursorLocalization++, 3] = localizationOld + " --> " + localizationNew; // oldLocalization --> newLocalization
                             }
                             // Sort Order
-                            if (dsNew.Tables[0].Rows[i][7].ToString() != dsOld.Tables[0].Rows[j][7].ToString())
+                            if (dsNew.Tables[0].Rows[i-1][7].ToString() != dsOld.Tables[0].Rows[j-1][7].ToString())
                             {
-                                wsSortOrder.Cells[cursorSortOrder, 1] = componentNameNew;
-                                wsSortOrder.Cells[cursorSortOrder, 2] = dsNew.Tables[0].Rows[i][1].ToString();    // Part Number
-                                wsSortOrder.Cells[cursorSortOrder++, 3] = dsOld.Tables[0].Rows[j][7].ToString() + " --> " + dsNew.Tables[0].Rows[i][7].ToString(); // oldSortOrder --> newSortOrder
+                                wsSortOrder.Cells[cursorSortOrder, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
+                                wsSortOrder.Cells[cursorSortOrder, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // Part Number
+                                wsSortOrder.Cells[cursorSortOrder++, 3] = dsOld.Tables[0].Rows[j-1][7].ToString() + " --> " + dsNew.Tables[0].Rows[i-1][7].ToString(); // oldSortOrder --> newSortOrder
                             }
                             break;
                         }
@@ -226,14 +262,45 @@ namespace PDCompare_Beta3
 
                     if (find == false)  // Add to Added
                     {
-                        wsAdded.Cells[cursorAdded, 1] = componentNameNew;
-                        wsAdded.Cells[cursorAdded, 2] = dsNew.Tables[0].Rows[i][18].ToString() + "," + dsNew.Tables[0].Rows[i][19].ToString() + "," + dsNew.Tables[0].Rows[i][20].ToString();
-                        wsAdded.Cells[cursorAdded++, 3] = dsNew.Tables[0].Rows[i][1].ToString();
+                        wsAdded.Cells[cursorAdded, 1] = dsNew.Tables[0].Rows[i - 1][0].ToString();  // component name
+                        wsAdded.Cells[cursorAdded, 2] = dsNew.Tables[0].Rows[i-1][18].ToString().Trim() + "," + dsNew.Tables[0].Rows[i-1][19].ToString().Trim() + "," + dsNew.Tables[0].Rows[i-1][20].ToString().Trim();    //version
+                        wsAdded.Cells[cursorAdded++, 3] = dsNew.Tables[0].Rows[i-1][1].ToString();  // part number
+                    }
+
+                    Application.DoEvents();
+                }
+
+                // Get removed components
+                for (int j = 1; j < rowCountOld; j++)
+                {
+                    find = false;
+
+                    string componentPN_sub_Old = dsOld.Tables[0].Rows[j - 1][1].ToString().Substring(0, dsOld.Tables[0].Rows[j - 1][1].ToString().Length - 1);
+
+                    for (int i = 1; i < rowCountNew; i++)
+                    {
+                        string componentPN_sub_New = dsNew.Tables[0].Rows[i - 1][1].ToString().Substring(0, dsNew.Tables[0].Rows[i - 1][1].ToString().Length - 1);
+
+                        if (componentPN_sub_Old == componentPN_sub_New)
+                        {
+                            find = true;
+                            break;
+                        }
+                    }
+
+                    // Add to Removed
+                    if (!find)
+                    {
+                        wsRemoved.Cells[cursorRemoved, 1] = dsOld.Tables[0].Rows[j - 1][0].ToString();  // component name
+                        wsRemoved.Cells[cursorRemoved, 2] = dsOld.Tables[0].Rows[j - 1][18].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][19].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][20].ToString().Trim();  // version
+                        wsRemoved.Cells[cursorRemoved++, 3] = dsOld.Tables[0].Rows[j - 1][1].ToString();  // part number
                     }
                 }
+
                 workBook.SaveAs(resultFileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
-                MessageBox.Show("导入成功！", "系统提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                app.Quit();
+                MessageBox.Show("Finished!", "Application Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //app.Quit();
+                app.Visible = true;
                 //this.Close();
                 Application.Exit();
                 //MessageBox.Show(DateTime.Now.Subtract(dt).ToString());  //循环结束截止时间 

@@ -24,6 +24,7 @@ namespace PDCompare_Beta3
             openFileDialog1.Filter = "Excel files|*.xlsx;*.xls";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.FileName = "";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 tbOld.Text = openFileDialog1.FileName;
@@ -37,6 +38,7 @@ namespace PDCompare_Beta3
             openFileDialog1.Filter = "Excel files|*.xlsx;*.xls";
             openFileDialog1.FilterIndex = 1;
             openFileDialog1.RestoreDirectory = true;
+            openFileDialog1.FileName = "";
             if (openFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 tbNew.Text = openFileDialog1.FileName;
