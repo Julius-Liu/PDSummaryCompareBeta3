@@ -43,10 +43,10 @@
             this.createTestResultFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createTestResultFileToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.testFileNameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testProgressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.testProgressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -58,10 +58,10 @@
             // 
             this.groupBox1.Controls.Add(this.groupBox3);
             this.groupBox1.Controls.Add(this.groupBox2);
-            this.groupBox1.Font = new System.Drawing.Font("HP Simplified", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(12, 29);
+            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(710, 251);
+            this.groupBox1.Size = new System.Drawing.Size(710, 232);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select PD Files";
@@ -70,21 +70,21 @@
             // 
             this.groupBox3.Controls.Add(this.btnBrowseNew);
             this.groupBox3.Controls.Add(this.tbNew);
-            this.groupBox3.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox3.Location = new System.Drawing.Point(37, 140);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(37, 129);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(635, 91);
+            this.groupBox3.Size = new System.Drawing.Size(635, 84);
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "New PD Summary";
             // 
             // btnBrowseNew
             // 
-            this.btnBrowseNew.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBrowseNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBrowseNew.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnBrowseNew.Location = new System.Drawing.Point(517, 24);
+            this.btnBrowseNew.Location = new System.Drawing.Point(517, 22);
             this.btnBrowseNew.Name = "btnBrowseNew";
-            this.btnBrowseNew.Size = new System.Drawing.Size(104, 50);
+            this.btnBrowseNew.Size = new System.Drawing.Size(104, 46);
             this.btnBrowseNew.TabIndex = 1;
             this.btnBrowseNew.Text = "Browse";
             this.btnBrowseNew.UseVisualStyleBackColor = true;
@@ -92,31 +92,31 @@
             // 
             // tbNew
             // 
-            this.tbNew.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNew.Location = new System.Drawing.Point(6, 34);
+            this.tbNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbNew.Location = new System.Drawing.Point(6, 31);
             this.tbNew.Name = "tbNew";
-            this.tbNew.Size = new System.Drawing.Size(505, 30);
+            this.tbNew.Size = new System.Drawing.Size(505, 29);
             this.tbNew.TabIndex = 0;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnBrowseOld);
             this.groupBox2.Controls.Add(this.tbOld);
-            this.groupBox2.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(37, 43);
+            this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox2.Location = new System.Drawing.Point(37, 40);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(635, 91);
+            this.groupBox2.Size = new System.Drawing.Size(635, 84);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Old PD Summary";
             // 
             // btnBrowseOld
             // 
-            this.btnBrowseOld.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBrowseOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBrowseOld.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnBrowseOld.Location = new System.Drawing.Point(517, 24);
+            this.btnBrowseOld.Location = new System.Drawing.Point(517, 22);
             this.btnBrowseOld.Name = "btnBrowseOld";
-            this.btnBrowseOld.Size = new System.Drawing.Size(104, 50);
+            this.btnBrowseOld.Size = new System.Drawing.Size(104, 46);
             this.btnBrowseOld.TabIndex = 1;
             this.btnBrowseOld.Text = "Browse";
             this.btnBrowseOld.UseVisualStyleBackColor = true;
@@ -124,19 +124,19 @@
             // 
             // tbOld
             // 
-            this.tbOld.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOld.Location = new System.Drawing.Point(6, 34);
+            this.tbOld.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbOld.Location = new System.Drawing.Point(6, 31);
             this.tbOld.Name = "tbOld";
-            this.tbOld.Size = new System.Drawing.Size(505, 30);
+            this.tbOld.Size = new System.Drawing.Size(505, 29);
             this.tbOld.TabIndex = 0;
             // 
             // btnGo
             // 
-            this.btnGo.Font = new System.Drawing.Font("HP Simplified", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGo.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGo.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnGo.Location = new System.Drawing.Point(537, 26);
+            this.btnGo.Location = new System.Drawing.Point(537, 24);
             this.btnGo.Name = "btnGo";
-            this.btnGo.Size = new System.Drawing.Size(141, 47);
+            this.btnGo.Size = new System.Drawing.Size(141, 43);
             this.btnGo.TabIndex = 2;
             this.btnGo.Text = "GO";
             this.btnGo.UseVisualStyleBackColor = true;
@@ -149,7 +149,7 @@
             this.createTestResultFileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(734, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(734, 25);
             this.menuStrip1.TabIndex = 4;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -159,19 +159,19 @@
             this.aboutToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.optionToolStripMenuItem.Name = "optionToolStripMenuItem";
-            this.optionToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.optionToolStripMenuItem.Size = new System.Drawing.Size(60, 21);
             this.optionToolStripMenuItem.Text = "Option";
             // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.aboutToolStripMenuItem.Text = "About";
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(111, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // createTestResultFileToolStripMenuItem
@@ -181,59 +181,60 @@
             this.testFileNameToolStripMenuItem,
             this.testProgressToolStripMenuItem});
             this.createTestResultFileToolStripMenuItem.Name = "createTestResultFileToolStripMenuItem";
-            this.createTestResultFileToolStripMenuItem.Size = new System.Drawing.Size(125, 20);
+            this.createTestResultFileToolStripMenuItem.Size = new System.Drawing.Size(136, 21);
             this.createTestResultFileToolStripMenuItem.Text = "CreateTestResultFile";
             // 
             // createTestResultFileToolStripMenuItem1
             // 
             this.createTestResultFileToolStripMenuItem1.Name = "createTestResultFileToolStripMenuItem1";
-            this.createTestResultFileToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.createTestResultFileToolStripMenuItem1.Size = new System.Drawing.Size(192, 22);
             this.createTestResultFileToolStripMenuItem1.Text = "CreateTestResultFile";
             this.createTestResultFileToolStripMenuItem1.Click += new System.EventHandler(this.createTestResultFileToolStripMenuItem1_Click);
             // 
             // testFileNameToolStripMenuItem
             // 
             this.testFileNameToolStripMenuItem.Name = "testFileNameToolStripMenuItem";
-            this.testFileNameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.testFileNameToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
             this.testFileNameToolStripMenuItem.Text = "TestFileName";
             this.testFileNameToolStripMenuItem.Click += new System.EventHandler(this.testFileNameToolStripMenuItem_Click);
+            // 
+            // testProgressToolStripMenuItem
+            // 
+            this.testProgressToolStripMenuItem.Name = "testProgressToolStripMenuItem";
+            this.testProgressToolStripMenuItem.Size = new System.Drawing.Size(192, 22);
+            this.testProgressToolStripMenuItem.Text = "TestProgress";
+            this.testProgressToolStripMenuItem.Click += new System.EventHandler(this.testProgressToolStripMenuItem_Click);
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.btnGo);
             this.groupBox4.Controls.Add(this.tbResult);
-            this.groupBox4.Font = new System.Drawing.Font("HP Simplified", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(12, 286);
+            this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox4.Location = new System.Drawing.Point(12, 264);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(710, 103);
+            this.groupBox4.Size = new System.Drawing.Size(710, 95);
             this.groupBox4.TabIndex = 5;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Result File Name";
             // 
             // tbResult
             // 
-            this.tbResult.Font = new System.Drawing.Font("HP Simplified", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbResult.Location = new System.Drawing.Point(43, 34);
+            this.tbResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbResult.Location = new System.Drawing.Point(43, 31);
             this.tbResult.Name = "tbResult";
-            this.tbResult.Size = new System.Drawing.Size(488, 30);
+            this.tbResult.Size = new System.Drawing.Size(488, 29);
             this.tbResult.TabIndex = 0;
+            this.tbResult.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbResult_KeyPress);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // testProgressToolStripMenuItem
-            // 
-            this.testProgressToolStripMenuItem.Name = "testProgressToolStripMenuItem";
-            this.testProgressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.testProgressToolStripMenuItem.Text = "TestProgress";
-            this.testProgressToolStripMenuItem.Click += new System.EventHandler(this.testProgressToolStripMenuItem_Click);
-            // 
             // Main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(734, 412);
+            this.ClientSize = new System.Drawing.Size(734, 380);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.groupBox1);

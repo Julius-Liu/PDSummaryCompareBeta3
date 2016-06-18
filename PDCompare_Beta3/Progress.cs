@@ -98,20 +98,22 @@ namespace PDCompare_Beta3
                 var app = new Excel.Application();
                 app.Visible = false;
 
+                #region Generate 6 worksheet
+
                 Excel.Workbook workBook = app.Workbooks.Add(Nothing);                   // Sort Order
                 Excel.Worksheet wsSortOrder = (Excel.Worksheet)workBook.Sheets[1];
                 wsSortOrder.Name = "Sort Order";
-                wsSortOrder.Tab.Color = System.Drawing.Color.Yellow;
+                wsSortOrder.Tab.Color = System.Drawing.Color.GreenYellow;
 
                 workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);    // Localization
                 Excel.Worksheet wsLocalization = (Excel.Worksheet)workBook.Sheets[1];
                 wsLocalization.Name = "Localization";
-                wsLocalization.Tab.Color = System.Drawing.Color.Turquoise;
+                wsLocalization.Tab.Color = System.Drawing.Color.Yellow;
 
                 workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);     // Option Code
                 Excel.Worksheet wsOptionCode = (Excel.Worksheet)workBook.Sheets[1];
                 wsOptionCode.Name = "Option Code";
-                wsOptionCode.Tab.Color = System.Drawing.Color.GreenYellow;
+                wsOptionCode.Tab.Color = System.Drawing.Color.Turquoise;
 
                 workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);        // Removed
                 Excel.Worksheet wsRemoved = (Excel.Worksheet)workBook.Sheets[1];
@@ -128,7 +130,9 @@ namespace PDCompare_Beta3
                 wsAdded.Name = "Added";
                 wsAdded.Tab.Color = System.Drawing.Color.Green;
 
-                // headline  
+                #endregion
+
+                #region headline and headline font
 
                 wsAdded.Cells[1, 1] = "Added:";
                 wsChanged.Cells[1, 1] = "Changed:";
@@ -137,40 +141,57 @@ namespace PDCompare_Beta3
                 wsLocalization.Cells[1, 1] = "Localization";
                 wsSortOrder.Cells[1, 1] = "Sort Order";
 
-                #region font settings
+                wsAdded.Rows[1].Font.Size = 18;
+                wsAdded.Rows[1].Font.Bold = true;
+                wsAdded.Rows[1].Font.Underline = true;
 
-                Excel.Range rangeWsAddedHL = (Excel.Range)wsAdded.get_Range("A1");
-                rangeWsAddedHL.Font.Size = 18;
-                rangeWsAddedHL.Font.Bold = true;
-                rangeWsAddedHL.Font.Underline = true;
-
-                //Excel.Range rangeWsAddedAF = (Excel.Range)wsAdded.get_Range("A1", "C1");
-                //rangeWsAddedAF.EntireColumn.AutoFit();
-
-                //Excel.Range rangeWsChangedHL = (Excel.Range)wsChanged.get_Range("A1");
-                //rangeWsChangedHL.Font.Size = 18;
-                //rangeWsChangedHL.Font.Bold = true;
-                //rangeWsChangedHL.Font.Underline = true;
-
-                wsChanged.Rows[1][1].Font.Size = 18;
-                wsChanged.Rows[1][1].Font.Bold = true;
-                wsChanged.Rows[1][1].Font.Underline = true;
-
-                //wsChanged.Columns[1].ColumnWidth = 200;
-                Excel.Range rangeWsChangedA1 = (Excel.Range)wsChanged.get_Range("A1");
-                rangeWsChangedA1.ColumnWidth = 30;
-
-                Excel.Range rangeWsOptionCodeHL = (Excel.Range)wsOptionCode.get_Range("A1");
-                rangeWsOptionCodeHL.Font.Size = 18;
-                rangeWsOptionCodeHL.Font.Bold = true;
-                rangeWsOptionCodeHL.Font.Underline = true;
-
-                Excel.Range rangeWsChangedAF = (Excel.Range)wsChanged.get_Range("A2", "C2");
-                rangeWsChangedAF.EntireColumn.AutoFit();
-
+                wsChanged.Rows[1].Font.Size = 18;
+                wsChanged.Rows[1].Font.Bold = true;
+                wsChanged.Rows[1].Font.Underline = true;
                 
+                wsRemoved.Rows[1].Font.Size = 18;
+                wsRemoved.Rows[1].Font.Bold = true;
+                wsRemoved.Rows[1].Font.Underline = true;
 
-                // TBD
+                wsOptionCode.Rows[1].Font.Size = 18;
+                wsOptionCode.Rows[1].Font.Bold = true;
+                wsOptionCode.Rows[1].Font.Underline = true;
+
+                wsLocalization.Rows[1].Font.Size = 18;
+                wsLocalization.Rows[1].Font.Bold = true;
+                wsLocalization.Rows[1].Font.Underline = true;
+
+                wsSortOrder.Rows[1].Font.Size = 18;
+                wsSortOrder.Rows[1].Font.Bold = true;
+                wsSortOrder.Rows[1].Font.Underline = true;
+
+                #endregion
+
+                #region ColumnWidth Settings
+
+                wsAdded.Columns[1].ColumnWidth = 70;
+                wsAdded.Columns[2].ColumnWidth = 20;
+                wsAdded.Columns[3].ColumnWidth = 15;
+
+                wsChanged.Columns[1].ColumnWidth = 70;
+                wsChanged.Columns[2].ColumnWidth = 40;
+                wsChanged.Columns[3].ColumnWidth = 30;
+
+                wsRemoved.Columns[1].ColumnWidth = 70;
+                wsRemoved.Columns[2].ColumnWidth = 20;
+                wsRemoved.Columns[3].ColumnWidth = 15;
+
+                wsOptionCode.Columns[1].ColumnWidth = 70;
+                wsOptionCode.Columns[2].ColumnWidth = 15;
+                wsOptionCode.Columns[3].ColumnWidth = 40;
+
+                wsLocalization.Columns[1].ColumnWidth = 70;
+                wsLocalization.Columns[2].ColumnWidth = 15;
+                wsLocalization.Columns[3].ColumnWidth = 100;
+
+                wsSortOrder.Columns[1].ColumnWidth = 70;
+                wsSortOrder.Columns[2].ColumnWidth = 15;
+                wsSortOrder.Columns[3].ColumnWidth = 10;
 
                 #endregion
 
@@ -182,9 +203,6 @@ namespace PDCompare_Beta3
                 int cursorOptionCode = 2;
                 int cursorLocalization = 2;
                 int cursorSortOrder = 2;
-
-                //progressBar1.Maximum = rowCountNew - 1;
-                //this.recordCount = rowCountNew;
 
                 progressBar1.Maximum = rowCountNew;
 
