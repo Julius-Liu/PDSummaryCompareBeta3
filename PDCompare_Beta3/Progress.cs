@@ -16,26 +16,13 @@ namespace PDCompare_Beta3
 {
     public partial class Progress : Form
     {
-        //private string pdOld;
-        //private string pdNew;
-        //private string resultFile;
-        //private int recordCount;
-
         public Progress(string pdOld, string pdNew, string resultFile)
         {
             InitializeComponent();
-
-            //this.pdOld = pdOld;
-            //this.pdNew = pdNew;
-            //this.resultFile = resultFile;
+            toolStripStatusLabel1.Visible = false;
+            toolStripStatusLabel2.Visible = false;
 
             string[] parameter = new string[]{pdOld, pdNew, resultFile};
-
-            //object obj1 = (object)parameter;
-            //string[] tempArray = null;
-            //List<string> myList = new List<string>(
-            //object[] tempArray = (object[])obj1;
-            //MessageBox.Show(tempArray[0].ToString() + " "+tempArray[1].ToString() + " "+ tempArray[2]);
 
             Thread myThread = new Thread(PDSummaryCompare);
             myThread.IsBackground = true;
@@ -57,7 +44,7 @@ namespace PDCompare_Beta3
             }
             else // here starts real PDSummaryCompare logic
             {
-                // Divide parameter to three strings for use
+                // Seperate parameter to three strings for use
                 object[] objectArray = (object[])parameter;
                 string pdOld = objectArray[0].ToString();
                 string pdNew = objectArray[1].ToString();
@@ -65,7 +52,7 @@ namespace PDCompare_Beta3
 
                 string strConOld = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + pdOld + ";" + "Extended Properties=Excel 8.0";
                 string strConNew = " Provider = Microsoft.Jet.OLEDB.4.0 ; Data Source = " + pdNew + ";" + "Extended Properties=Excel 8.0";
-                //MessageBox.Show(pdOld);
+
                 OleDbConnection myConnOld = new OleDbConnection(strConOld);
                 myConnOld.Open();
                 OleDbConnection myConnNew = new OleDbConnection(strConNew);
@@ -134,10 +121,10 @@ namespace PDCompare_Beta3
 
                 #region headline and headline font
 
-                wsAdded.Cells[1, 1] = "Added:";
-                wsChanged.Cells[1, 1] = "Changed:";
-                wsRemoved.Cells[1, 1] = "Removed:";
-                wsOptionCode.Cells[1, 1] = "Option Code:";
+                wsAdded.Cells[1, 1] = "Added";
+                wsChanged.Cells[1, 1] = "Changed";
+                wsRemoved.Cells[1, 1] = "Removed";
+                wsOptionCode.Cells[1, 1] = "Option Code";
                 wsLocalization.Cells[1, 1] = "Localization";
                 wsSortOrder.Cells[1, 1] = "Sort Order";
 
@@ -206,17 +193,42 @@ namespace PDCompare_Beta3
 
                 progressBar1.Maximum = rowCountNew;
 
+                // Show Start Time
+                toolStripStatusLabel1.Text = "Start Time: " + DateTime.Now.ToLongTimeString().ToString();
+                toolStripStatusLabel1.Visible = true;
+
                 for (int i = 1; i < rowCountNew; i++)
                 {
-                    progressBar1.Value = i+1;
+                    progressBar1.Value = i + 1;
 
                     find = false;
 
+                    // Get new component Part Number substring, P00NXG-B2
                     string componentPN_sub_New = dsNew.Tables[0].Rows[i-1][1].ToString().Substring(0, dsNew.Tables[0].Rows[i-1][1].ToString().Length - 1);
+
+                    // Get new component Name
+                    string componentName_New = dsNew.Tables[0].Rows[i-1][0].ToString();
 
                     for (int j = 1; j < rowCountOld; j++)
                     {
+                        // Get old component Part Number substring, P00ABC-B2
                         string componentPN_sub_Old = dsOld.Tables[0].Rows[j-1][1].ToString().Substring(0, dsOld.Tables[0].Rows[j-1][1].ToString().Length - 1);
+
+                        // Get old component Name
+                        string componentName_Old = dsOld.Tables[0].Rows[j-1][0].ToString();
+
+                        if (componentName_New == componentName_Old)
+                        {
+                            if (componentPN_sub_New == componentPN_sub_Old)
+                            {
+
+                            }
+                            else
+                            { 
+                                
+                            }
+                        }
+
 
                         if (componentPN_sub_New == componentPN_sub_Old)
                         {
@@ -226,17 +238,19 @@ namespace PDCompare_Beta3
                             // Add to Changed
                             if (dsNew.Tables[0].Rows[i-1][1].ToString() != dsOld.Tables[0].Rows[j-1][1].ToString())
                             {
-                                wsChanged.Cells[cursorChanged, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
+                                wsChanged.Cells[cursorChanged, 1] = componentName_New;  // new component name
+                                // oldVersion --> newVersion
                                 wsChanged.Cells[cursorChanged, 2] = dsOld.Tables[0].Rows[j-1][18].ToString().Trim() + "," + dsOld.Tables[0].Rows[j-1][19].ToString().Trim() + "," + dsOld.Tables[0].Rows[j-1][20].ToString().Trim()
                                     + " --> " + dsNew.Tables[0].Rows[i-1][18].ToString().Trim() + "," + dsNew.Tables[0].Rows[i-1][19].ToString().Trim() + "," + dsNew.Tables[0].Rows[i-1][20].ToString().Trim();
+                                // oldPartNumber --> newPartNumber
                                 wsChanged.Cells[cursorChanged++, 3] = dsNew.Tables[0].Rows[i-1][1].ToString() + " --> " + dsOld.Tables[0].Rows[j-1][1].ToString();
                             }
                             // Option Code is different
                             // Add to Option Code
                             if (dsNew.Tables[0].Rows[i-1][3].ToString() != dsOld.Tables[0].Rows[j-1][3].ToString())
                             {
-                                wsOptionCode.Cells[cursorOptionCode, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
-                                wsOptionCode.Cells[cursorOptionCode, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // Part Number
+                                wsOptionCode.Cells[cursorOptionCode, 1] = componentName_New;  // new component name
+                                wsOptionCode.Cells[cursorOptionCode, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // new Part Number
                                 string optionCodeOld = dsOld.Tables[0].Rows[j - 1][3].ToString();
                                 string optionCodeNew = dsNew.Tables[0].Rows[i - 1][3].ToString();
                                 if (optionCodeOld == "")
@@ -253,8 +267,8 @@ namespace PDCompare_Beta3
                             // Add to Localization
                             if (dsNew.Tables[0].Rows[i-1][4].ToString() != dsOld.Tables[0].Rows[j-1][4].ToString())
                             {
-                                wsLocalization.Cells[cursorLocalization, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
-                                wsLocalization.Cells[cursorLocalization, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // Part Number
+                                wsLocalization.Cells[cursorLocalization, 1] = componentName_New;  // new component name
+                                wsLocalization.Cells[cursorLocalization, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // new Part Number
                                 string localizationOld = dsOld.Tables[0].Rows[j-1][4].ToString();
                                 string localizationNew = dsNew.Tables[0].Rows[i-1][4].ToString();
                                 if (localizationOld == "")
@@ -270,7 +284,7 @@ namespace PDCompare_Beta3
                             // Sort Order
                             if (dsNew.Tables[0].Rows[i-1][7].ToString() != dsOld.Tables[0].Rows[j-1][7].ToString())
                             {
-                                wsSortOrder.Cells[cursorSortOrder, 1] = dsNew.Tables[0].Rows[i-1][0].ToString();  // component name
+                                wsSortOrder.Cells[cursorSortOrder, 1] = componentName_New;  // component name
                                 wsSortOrder.Cells[cursorSortOrder, 2] = dsNew.Tables[0].Rows[i-1][1].ToString();    // Part Number
                                 wsSortOrder.Cells[cursorSortOrder++, 3] = dsOld.Tables[0].Rows[j-1][7].ToString() + " --> " + dsNew.Tables[0].Rows[i-1][7].ToString(); // oldSortOrder --> newSortOrder
                             }
@@ -314,27 +328,16 @@ namespace PDCompare_Beta3
                         wsRemoved.Cells[cursorRemoved++, 3] = dsOld.Tables[0].Rows[j - 1][1].ToString();  // part number
                     }
                 }
+                
+                // Show End Time
+                // ToLongTimeString
+                toolStripStatusLabel2.Text = "End Time: " + DateTime.Now.ToLongTimeString().ToString();
+                toolStripStatusLabel2.Visible = true;
 
                 workBook.SaveAs(resultFileName, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Excel.XlSaveAsAccessMode.xlNoChange, Type.Missing, Type.Missing, Type.Missing);
                 MessageBox.Show("Finished!", "Application Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                //app.Quit();
                 app.Visible = true;
-                //this.Close();
                 Application.Exit();
-                //MessageBox.Show(DateTime.Now.Subtract(dt).ToString());  //循环结束截止时间 
-
-
-
-                //progressBar1.Maximum = (int)number;
-                //for (int i = 0; i < (int)number; i++)
-                //{
-                    //progressBar1.Value = i;
-
-
-                    //Application.DoEvents();
-                //}
-
-                
             }
         }
     }
