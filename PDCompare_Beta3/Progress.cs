@@ -85,7 +85,7 @@ namespace PDCompare_Beta3
                 var app = new Excel.Application();
                 app.Visible = false;
 
-                #region Generate 6 worksheet
+                #region Generate 7 worksheet
 
                 Excel.Workbook workBook = app.Workbooks.Add(Nothing);                   // Sort Order
                 Excel.Worksheet wsSortOrder = (Excel.Worksheet)workBook.Sheets[1];
@@ -116,6 +116,10 @@ namespace PDCompare_Beta3
                 Excel.Worksheet wsAdded = (Excel.Worksheet)workBook.Sheets[1];
                 wsAdded.Name = "Added";
                 wsAdded.Tab.Color = System.Drawing.Color.Green;
+
+                workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);    // Added
+                Excel.Worksheet wsCompareLog = (Excel.Worksheet)workBook.Sheets[1];
+                wsCompareLog.Name = "Compare Log";
 
                 #endregion
 
@@ -152,9 +156,14 @@ namespace PDCompare_Beta3
                 wsSortOrder.Rows[1].Font.Bold = true;
                 wsSortOrder.Rows[1].Font.Underline = true;
 
+                wsCompareLog.Columns[1].Font.Size = 18;
+
                 #endregion
 
                 #region ColumnWidth Settings
+
+                wsCompareLog.Columns[1].ColumnWidth = 35;
+                wsCompareLog.Columns[2].ColumnWidth = 100;
 
                 wsAdded.Columns[1].ColumnWidth = 70;
                 wsAdded.Columns[2].ColumnWidth = 20;
@@ -179,6 +188,17 @@ namespace PDCompare_Beta3
                 wsSortOrder.Columns[1].ColumnWidth = 70;
                 wsSortOrder.Columns[2].ColumnWidth = 15;
                 wsSortOrder.Columns[3].ColumnWidth = 10;
+
+                #endregion
+
+                #region Write Compare Log
+
+                wsCompareLog.Cells[1, 1] = "PDSummary Old";
+                wsCompareLog.Cells[2, 1] = "PDSummary New";
+                wsCompareLog.Cells[3, 1] = "Result File";
+                wsCompareLog.Cells[1, 2] = pdOld;
+                wsCompareLog.Cells[2, 2] = pdNew;
+                wsCompareLog.Cells[3, 2] = resultFileName;
 
                 #endregion
 
@@ -215,20 +235,7 @@ namespace PDCompare_Beta3
                         string componentPN_sub_Old = dsOld.Tables[0].Rows[j-1][1].ToString().Substring(0, dsOld.Tables[0].Rows[j-1][1].ToString().Length - 1);
 
                         // Get old component Name
-                        string componentName_Old = dsOld.Tables[0].Rows[j-1][0].ToString();
-
-                        if (componentName_New == componentName_Old)
-                        {
-                            if (componentPN_sub_New == componentPN_sub_Old)
-                            {
-
-                            }
-                            else
-                            { 
-                                
-                            }
-                        }
-
+                        string componentName_Old = dsOld.Tables[0].Rows[j-1][0].ToString();                
 
                         if (componentPN_sub_New == componentPN_sub_Old)
                         {
@@ -290,6 +297,68 @@ namespace PDCompare_Beta3
                             }
                             break;
                         }
+                        else if (componentName_New == componentName_Old
+                            && !componentName_New.Contains("Language Pack")
+                            && !componentName_New.Contains("Microsoft Office"))
+                        {
+                            // means old part number reach z version
+                            // have to assign new part number to the same component
+                            // Add to Changed
+                            find = true;
+
+                            wsChanged.Cells[cursorChanged, 1] = componentName_New;  // new component name
+                            // oldVersion --> newVersion
+                            wsChanged.Cells[cursorChanged, 2] = dsOld.Tables[0].Rows[j - 1][18].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][19].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][20].ToString().Trim()
+                                    + " --> " + dsNew.Tables[0].Rows[i - 1][18].ToString().Trim() + "," + dsNew.Tables[0].Rows[i - 1][19].ToString().Trim() + "," + dsNew.Tables[0].Rows[i - 1][20].ToString().Trim();
+                            // oldPartNumber --> newPartNumber
+                            wsChanged.Cells[cursorChanged++, 3] = dsNew.Tables[0].Rows[i - 1][1].ToString() + " --> " + dsOld.Tables[0].Rows[j - 1][1].ToString();
+
+                            // Option Code is different
+                            // Add to Option Code
+                            if (dsNew.Tables[0].Rows[i - 1][3].ToString() != dsOld.Tables[0].Rows[j - 1][3].ToString())
+                            {
+                                wsOptionCode.Cells[cursorOptionCode, 1] = componentName_New;  // new component name
+                                wsOptionCode.Cells[cursorOptionCode, 2] = dsNew.Tables[0].Rows[i - 1][1].ToString();    // new Part Number
+                                string optionCodeOld = dsOld.Tables[0].Rows[j - 1][3].ToString();
+                                string optionCodeNew = dsNew.Tables[0].Rows[i - 1][3].ToString();
+                                if (optionCodeOld == "")
+                                {
+                                    optionCodeOld = "null";
+                                }
+                                if (optionCodeNew == "")
+                                {
+                                    optionCodeNew = "null";
+                                }
+                                wsOptionCode.Cells[cursorOptionCode++, 3] = optionCodeOld + " --> " + optionCodeNew; // oldOptionCode --> newOptionCode
+                            }
+                            // Localization
+                            // Add to Localization
+                            if (dsNew.Tables[0].Rows[i - 1][4].ToString() != dsOld.Tables[0].Rows[j - 1][4].ToString())
+                            {
+                                wsLocalization.Cells[cursorLocalization, 1] = componentName_New;  // new component name
+                                wsLocalization.Cells[cursorLocalization, 2] = dsNew.Tables[0].Rows[i - 1][1].ToString();    // new Part Number
+                                string localizationOld = dsOld.Tables[0].Rows[j - 1][4].ToString();
+                                string localizationNew = dsNew.Tables[0].Rows[i - 1][4].ToString();
+                                if (localizationOld == "")
+                                {
+                                    localizationOld = "null";
+                                }
+                                if (localizationNew == "")
+                                {
+                                    localizationNew = "null";
+                                }
+                                wsLocalization.Cells[cursorLocalization++, 3] = localizationOld + " --> " + localizationNew; // oldLocalization --> newLocalization
+                            }
+                            // Sort Order
+                            if (dsNew.Tables[0].Rows[i - 1][7].ToString() != dsOld.Tables[0].Rows[j - 1][7].ToString())
+                            {
+                                wsSortOrder.Cells[cursorSortOrder, 1] = componentName_New;  // component name
+                                wsSortOrder.Cells[cursorSortOrder, 2] = dsNew.Tables[0].Rows[i - 1][1].ToString();    // Part Number
+                                wsSortOrder.Cells[cursorSortOrder++, 3] = dsOld.Tables[0].Rows[j - 1][7].ToString() + " --> " + dsNew.Tables[0].Rows[i - 1][7].ToString(); // oldSortOrder --> newSortOrder
+                            }
+
+                            break;
+                        }
                     }
 
                     if (find == false)  // Add to Added
@@ -307,13 +376,25 @@ namespace PDCompare_Beta3
                 {
                     find = false;
 
+                    // Get old component Part Number substring, P00ABC-B2
                     string componentPN_sub_Old = dsOld.Tables[0].Rows[j - 1][1].ToString().Substring(0, dsOld.Tables[0].Rows[j - 1][1].ToString().Length - 1);
+                    // Get old component Name
+                    string componentName_Old = dsOld.Tables[0].Rows[j-1][0].ToString();
 
                     for (int i = 1; i < rowCountNew; i++)
                     {
+                        // Get new component Part Number substring, P00NXG-B2
                         string componentPN_sub_New = dsNew.Tables[0].Rows[i - 1][1].ToString().Substring(0, dsNew.Tables[0].Rows[i - 1][1].ToString().Length - 1);
 
+                        // Get new component Name
+                        string componentName_New = dsNew.Tables[0].Rows[i-1][0].ToString();   
+
                         if (componentPN_sub_Old == componentPN_sub_New)
+                        {
+                            find = true;
+                            break;
+                        }
+                        else if (componentName_Old == componentName_New)
                         {
                             find = true;
                             break;
@@ -324,7 +405,8 @@ namespace PDCompare_Beta3
                     if (!find)
                     {
                         wsRemoved.Cells[cursorRemoved, 1] = dsOld.Tables[0].Rows[j - 1][0].ToString();  // component name
-                        wsRemoved.Cells[cursorRemoved, 2] = dsOld.Tables[0].Rows[j - 1][18].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][19].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][20].ToString().Trim();  // version
+                        // version
+                        wsRemoved.Cells[cursorRemoved, 2] = dsOld.Tables[0].Rows[j - 1][18].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][19].ToString().Trim() + "," + dsOld.Tables[0].Rows[j - 1][20].ToString().Trim();  
                         wsRemoved.Cells[cursorRemoved++, 3] = dsOld.Tables[0].Rows[j - 1][1].ToString();  // part number
                     }
                 }
