@@ -235,7 +235,25 @@ namespace PDCompare_Beta3
                         string componentPN_sub_Old = dsOld.Tables[0].Rows[j-1][1].ToString().Substring(0, dsOld.Tables[0].Rows[j-1][1].ToString().Length - 1);
 
                         // Get old component Name
-                        string componentName_Old = dsOld.Tables[0].Rows[j-1][0].ToString();                
+                        string componentName_Old = dsOld.Tables[0].Rows[j-1][0].ToString();
+
+                        if (componentName_New.Contains("Language Pack") && componentName_Old.Contains("Language Pack"))// component belongs to base os Language Pack
+                        {                            
+                            if (dsOld.Tables[0].Rows[i - 1][1].ToString() == dsOld.Tables[0].Rows[j - 1][1].ToString())
+                            { 
+                                
+                            }
+                        }
+                        else if (componentName_New.Contains("notExisted") && componentName_Old.Contains("notExisted"))
+                        {
+                            // component belongs to Office Language Pack
+                        }
+
+                        else
+                        { 
+                            // other components
+                        }
+
 
                         if (componentPN_sub_New == componentPN_sub_Old)
                         {
