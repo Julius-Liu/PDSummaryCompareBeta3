@@ -53,28 +53,6 @@ namespace PDCompare_Beta3
             progress1.Show();            
         }
 
-        private void createTestResultFileToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            TestResultExcelForm testResultExcelForm1 = new TestResultExcelForm();
-            testResultExcelForm1.Show();
-        }
-
-        private void testFileNameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            string[] split = tbNew.Text.Split('\\');
-            int yyyLen = split[split.Length - 1].Length;
-
-            string resultFileName = tbNew.Text.Substring(0, tbNew.Text.Length - yyyLen) + tbResult.Text + ".xlsx";
-
-            MessageBox.Show(resultFileName);
-        }
-
-        private void testProgressToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Progress progress1 = new Progress(tbOld.Text, tbNew.Text, tbResult.Text);
-            progress1.Show();
-        }
-
         private void tbResult_KeyPress(object sender, KeyPressEventArgs e)
         {
             // When you press Enter in Result File Name input box,
@@ -84,6 +62,16 @@ namespace PDCompare_Beta3
                 e.Handled = true;
                 SendKeys.Send("{TAB} + {HOME}");
             }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("PD Compare Beta 3\n\nDeveloped by Liu, Julius(CDC)\nEmail: jun.liu11@hp.com", "About");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -117,7 +117,7 @@ namespace PDCompare_Beta3
                 wsAdded.Name = "Added";
                 wsAdded.Tab.Color = System.Drawing.Color.Green;
 
-                workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);    // Added
+                workBook.Sheets.Add(Type.Missing, Type.Missing, Type.Missing, Type.Missing);    // Compare Log
                 Excel.Worksheet wsCompareLog = (Excel.Worksheet)workBook.Sheets[1];
                 wsCompareLog.Name = "Compare Log";
 
@@ -156,7 +156,13 @@ namespace PDCompare_Beta3
                 wsSortOrder.Rows[1].Font.Bold = true;
                 wsSortOrder.Rows[1].Font.Underline = true;
 
-                wsCompareLog.Columns[1].Font.Size = 18;
+                wsCompareLog.Columns[1].Font.Size = 18;                
+                wsCompareLog.Cells[1, 1] = "PDSummary Old";
+                wsCompareLog.Cells[2, 1] = "PDSummary New";
+                wsCompareLog.Cells[3, 1] = "Result File";
+                wsCompareLog.Cells[1, 2] = pdOld;
+                wsCompareLog.Cells[2, 2] = pdNew;
+                wsCompareLog.Cells[3, 2] = resultFileName;
 
                 #endregion
 
@@ -188,17 +194,6 @@ namespace PDCompare_Beta3
                 wsSortOrder.Columns[1].ColumnWidth = 70;
                 wsSortOrder.Columns[2].ColumnWidth = 15;
                 wsSortOrder.Columns[3].ColumnWidth = 10;
-
-                #endregion
-
-                #region Write Compare Log
-
-                wsCompareLog.Cells[1, 1] = "PDSummary Old";
-                wsCompareLog.Cells[2, 1] = "PDSummary New";
-                wsCompareLog.Cells[3, 1] = "Result File";
-                wsCompareLog.Cells[1, 2] = pdOld;
-                wsCompareLog.Cells[2, 2] = pdNew;
-                wsCompareLog.Cells[3, 2] = resultFileName;
 
                 #endregion
 
@@ -243,8 +238,8 @@ namespace PDCompare_Beta3
                             { 
                                 find = true;
                             }
-                            else if (componentPN_sub_New == componentPN_sub_Old) // PN changed
-                            {
+                            else if (dsNew.Tables[0].Rows[i - 1][1].ToString().Substring(7, 2) == dsOld.Tables[0].Rows[j - 1][1].ToString().Substring(7, 2))
+                            {   // PN changed, like P00MAT-B2T --> P00ABC-B2A
                                 find = true;
 
                                 wsChanged.Cells[cursorChanged, 1] = componentName_New;  // new component name
@@ -263,8 +258,8 @@ namespace PDCompare_Beta3
                             {
                                 find = true;
                             }
-                            else if (componentPN_sub_New == componentPN_sub_Old) // PN changed
-                            {
+                            else if (dsNew.Tables[0].Rows[i - 1][1].ToString().Substring(7, 2) == dsOld.Tables[0].Rows[j - 1][1].ToString().Substring(7, 2))
+                            {   // PN changed, like P00MAT-B2T --> P00ABC-B2A
                                 find = true;
 
                                 wsChanged.Cells[cursorChanged, 1] = componentName_New;  // new component name
@@ -367,7 +362,8 @@ namespace PDCompare_Beta3
 
                         if (componentName_Old.Contains("Language Pack") && componentName_New.Contains("Language Pack")) // component belongs to base os Language Pack
                         {
-                            if (componentPN_sub_Old == componentPN_sub_New)
+                            // Using dash code like 00, 03, AA to look for the same LP component
+                            if (dsNew.Tables[0].Rows[i - 1][1].ToString().Substring(7, 2) == dsOld.Tables[0].Rows[j - 1][1].ToString().Substring(7, 2))
                             {
                                 find = true;
                                 break;
@@ -377,7 +373,8 @@ namespace PDCompare_Beta3
                             && !componentName_New.Contains("Base_file") && !componentName_New.Contains("Install_Tool")
                             && !componentName_Old.Contains("Base_file") && !componentName_Old.Contains("Install_Tool")) // component belongs to Office Language Pack
                         {
-                            if (componentPN_sub_Old == componentPN_sub_New)
+                            // Using dash code like 00, 03, AA to look for the same Office LP component
+                            if (dsNew.Tables[0].Rows[i - 1][1].ToString().Substring(7, 2) == dsOld.Tables[0].Rows[j - 1][1].ToString().Substring(7, 2))
                             {
                                 find = true;
                                 break;
